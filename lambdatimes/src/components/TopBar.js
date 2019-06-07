@@ -1,31 +1,52 @@
 import React from "react";
 import styled from "styled-components";
+import Login from "./Login/Login";
 
 // Refactor this component to use styled components and not classNames.
 // You can find the corresponding CSS in the CSS/index.css file
 
-const TopBar = () => {
-  return (
-    <StyledTopBar>
-      <StyledContainer>
-        <StyledContainerLeft>
-          <span>TOPICS</span>
-          <span>SEARCH</span>
-        </StyledContainerLeft>
-        <StyledContainerCenter>
-          <span>GENERAL</span>
-          <span>BROWNBAG</span>
-          <span>RANDOM</span>
-          <span>MUSIC</span>
-          <span>ANNOUNCEMENTS</span>
-        </StyledContainerCenter>
-        <StyledContainerRight>
-          <span>LOG IN</span>
-        </StyledContainerRight>
-      </StyledContainer>
-    </StyledTopBar>
-  );
-};
+class TopBar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showLogin: false
+    };
+  }
+
+  onLoginClicked = () => {
+    this.setState({ showLogin: !this.state.showLogin });
+  };
+
+  loginModal = () => {
+    if (this.state.showLogin) {
+      return <Login />;
+    }
+  };
+
+  render() {
+    return (
+      <StyledTopBar>
+        <StyledContainer>
+          <StyledContainerLeft>
+            <span>TOPICS</span>
+            <span>SEARCH</span>
+          </StyledContainerLeft>
+          <StyledContainerCenter>
+            <span>GENERAL</span>
+            <span>BROWNBAG</span>
+            <span>RANDOM</span>
+            <span>MUSIC</span>
+            <span>ANNOUNCEMENTS</span>
+          </StyledContainerCenter>
+          <StyledContainerRight>
+            {this.loginModal()}
+            <span onClick={this.onLoginClicked}>LOGIN</span>
+          </StyledContainerRight>
+        </StyledContainer>
+      </StyledTopBar>
+    );
+  }
+}
 
 const StyledTopBar = styled.div`
   width: 100%;
@@ -98,6 +119,15 @@ const StyledContainerRight = styled.div`
   flex: 1;
   font-size: 11px;
   font-weight: bold;
+
+  form {
+    display: flex;
+    margin-right: 32px;
+
+    input {
+      margin-right: 8px;
+    }
+  }
 
   span {
     cursor: pointer;

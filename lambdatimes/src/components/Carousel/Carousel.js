@@ -30,11 +30,10 @@ export default class Carousel extends Component {
   }
 
   selectedImage = () => {
-    return <img src={this.state.carousel[this.state.selected]} style={{display: 'block'}} />
+    return <img alt='carousel' src={this.state.carousel[this.state.selected]} style={{display: 'block'}} />
   }
   
   render(){
-    console.log(this.state.carousel[1]);
     return (
       <div className="carousel">
         <div className="left-button" onClick={this.leftClick}>{"<"}</div>
